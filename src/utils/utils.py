@@ -2,12 +2,16 @@
     Contains useful functions can constants to save and load data
     into different files.
 
+    NOTE: DON'T using get_dataset(), and get_dataset_labeled(), as they are buggy.
+          Instead us get_imgs_from_src(), which uses relative paths.
+
     @Author Reece Kim
 """
 
 import os
 import cv2
 import numpy as np
+import copy
 
 
 # Spawn sizes (in pixels)
@@ -121,6 +125,10 @@ def create_hstacks(dicts: list[dict[str, np.ndarray]], name_append: str) -> dict
 
     # Initialize the result dict
     result = dict()
+
+    # Clone all of the dicts into a new list
+    temp = [sample_dict.copy() for sample_dict in dicts]
+    dicts = temp
 
     # loop through the dicts and add each of them to the hstack
     for i in range(0, len(dicts[0])):

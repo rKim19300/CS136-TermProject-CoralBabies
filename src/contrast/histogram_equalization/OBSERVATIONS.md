@@ -1,5 +1,7 @@
 # Initial Observations
 ## Author(s): Reece Kim
+## Created: 11/19/2024
+## Last Editied: 11/19/2024
 
 - Below are observations purely based on visual observations.
 - The images from left to right are
