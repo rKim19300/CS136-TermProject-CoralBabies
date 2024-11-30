@@ -18,7 +18,7 @@ def apply_clahe_grey():
         Applies clache to both color and grey-scaled versions
     """
 
-    # Load the dataset in color and gray
+    # Load the dataset in color and grayc
     dataset_color = utils.get_imgs_from_src('../../../dataset', cv2.IMREAD_COLOR)
     dataset_gray = utils.get_imgs_from_src('../../../dataset', cv2.IMREAD_GRAYSCALE)
 
