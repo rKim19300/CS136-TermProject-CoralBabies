@@ -27,7 +27,7 @@ def save_img(frame_name, img):
 
     if img is not None:
         save_path = os.path.join(SAVE_DIR, f"{frame_name}_active_contour.jpg")
-        print(f"Saving image: {frame_name}_region_based.jpg\n")
+        print(f"Saving image: {frame_name}_active_contour.jpg\n")
         cv.imwrite(save_path, img)
     else:
         print("No image to save!\n")
