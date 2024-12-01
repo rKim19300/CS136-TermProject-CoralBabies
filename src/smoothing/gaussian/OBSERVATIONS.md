@@ -8,7 +8,7 @@
 
 - Below are observations purely based on visual observations.
 - The Gaussian smoothing filter was applied on three sets of images: the base images, histogram equalization, and CLAHE, which builds upon histogram equalization
-- I will be evaluating the effects of the Gaussian smoothing filter on these three sets of images
+- I will be evaluating the effects of the Gaussian smoothing filter set to a 3x3 frame on these three sets of images
 
 I will be mainly focused on how well the Gaussian smoothing filter performs in eliminating noise from within the coral babies. The contrast is much greater and more readable when applied to the histogram equalized images, but that is to be expected.
 
