@@ -38,15 +38,15 @@ def active_contour_segmentation(image):
 
     # Apply Gaussian smoothing to reduce noise
     smoothed = cv.GaussianBlur(gray, (5, 5), 0)
-    print("1")
+
     # Define an initial snake contour (a circle or ellipse within the image)
     s = np.linspace(0, 2 * np.pi, 400)
     x = gray.shape[1] // 2 + gray.shape[1] // 4 * np.cos(s)  # Horizontal center + radius
     y = gray.shape[0] // 2 + gray.shape[0] // 4 * np.sin(s)  # Vertical center + radius
     init = np.array([x, y]).T  # Initial snake coordinates
-    print("2")
-    # Perform Active Contour Model
-    snake = active_contour(smoothed, init, alpha=0.015, beta=10, gamma=0.001)
+    print("Active contour is being applied ...")
+    # Perform Active Contour Model. To make it faster gamma may be increased
+    snake = active_contour(smoothed, init, alpha=0.015, beta=10, gamma=0.1)
 
     # Create a binary mask from the snake
     mask = np.zeros(gray.shape, dtype=np.uint8)
