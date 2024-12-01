@@ -11,9 +11,35 @@ MIN_COMPONENT_SIZE = 100
 WINDOWS_EDIT_BLUE_VAL = np.array([186, 81, 0])
 
 
-def get_connected_components(img: np.ndarray) -> tuple[UMat, dict]:
-    # Get the colony maps
-    colony_maps = utils.get_imgs_from_src('./colony_map', 0)
+def get_colony_components(colony_map_path: str) -> dict[str, tuple[np.ndarray, dict[np.int64, np.ndarray]]]:
+    """
+        Uses the marked_colony_maps to get the colonies of each sample as
+        connected components
+
+        :colony_map_path: The path to the colony map. We do this since the path is relative to
+                          the directory it is called
+
+        :returns: A dictionary with the name of each sample as the key
+                  and a tuple containing the map of the pixels, as well as
+                  another dictionary that holds <component_label, component_pixel_locations>
+    """
+
+    # Load the dataset
+    result = dict()
+    marked_colony_maps = utils.get_imgs_from_src(colony_map_path, 0)
+
+    # For each colony map, find the connected components
+    for name, img in marked_colony_maps.items():
+        component_tuple = get_connected_components(img)
+        result[name] = component_tuple
+
+    return result
+
+
+def get_connected_components(img: np.ndarray) -> tuple[np.ndarray, dict[np.int64, np.ndarray]]:
+    """
+        Gets the connected components of a single image
+    """
 
     # run the connected component algorithm on them
     print('\nGetting the connected components . . . \n')
@@ -21,25 +47,18 @@ def get_connected_components(img: np.ndarray) -> tuple[UMat, dict]:
 
     # create a dict of the pixel locations of all the connected components
     print('\nGetting the pixel locations of each component . . . \n')
-    """
     components = {}
     for label in range(1, num_labels):  # Skipping label 0 (background)
         component_pixels = np.argwhere(labels == label)
         components[label] = component_pixels
-        """
-    # Get the size of each component
-    components = dict.fromkeys(range(0, num_labels), 0)
-    for i in range(0, labels.shape[0]):
-        for j in range(0, labels.shape[1]):
-            components[labels[i, j]] += 1
 
     # Remove the components below a threshold
     print('\nRemoving components below a certain size . . . \n')
 
     labels_to_remove = []
 
-    for label, size in components.items():
-        if (size < MIN_COMPONENT_SIZE):
+    for label, pixel_locations in components.items():
+        if (len(pixel_locations) < MIN_COMPONENT_SIZE):
             labels_to_remove.append(label) # Remove the label later in the next loop
 
     # Find the label that contains the black background
@@ -48,6 +67,7 @@ def get_connected_components(img: np.ndarray) -> tuple[UMat, dict]:
 
     for label in labels_to_remove:
         del components[label]
+        labels[labels == label] = 0
 
     return labels, components
 
