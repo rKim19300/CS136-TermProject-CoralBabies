@@ -1,44 +1,57 @@
 import glob
+import os
 import numpy as np
 import cv2 as cv
+
+IMAGES_PATH = r'C:\Users\az1do\Downloads\Compressed\CS136-TermProject-CoralBabies-main\CS136-TermProject-CoralBabies-main\images'
+SAVE_DIR = r'C:\Users\az1do\Downloads\Compressed\CS136-TermProject-CoralBabies-main\CS136-TermProject-CoralBabies-main\src\segmentation\Mean_Shift'
 
 class Image:
     img = None
     name = ''
 
-    def __init__(self, name):
-        self.name = name[7:]  # Adjusted to remove directory prefix
-        self.img = cv.imread(name)
+    def __init__(self, filepath):
+        self.name, _ = os.path.splitext(os.path.basename(filepath))
+        self.img = cv.imread(filepath)
+        if self.img is None:
+            print(f"Failed to load image: {filepath}")
 
-def save_my_img(frame_count, img):
+def save_img(frame_name, img):
+    if not os.path.exists(SAVE_DIR):
+        os.makedirs(SAVE_DIR)  # Ensure save directory exists
+
     if img is not None:
-        path = 'C:/CS136-TermProject-CoralBabies-main/src/segmentation/Mean_Shift'  # Change to your directory
-        name = f'/{frame_count}_mean_shift.png'
-        print(f"Saving image to: {path + name}")
-        cv.imwrite(path + name, img)
+        save_path = os.path.join(SAVE_DIR, f"{frame_name}_mean_shift.jpg")
+        print(f"Saving image: {frame_name}_mean_shift.jpg\n")
+        cv.imwrite(save_path, img)
     else:
-        print("No image to save!")
+        print("No image to save!\n")
 
 def mean_shift_segmentation(image):
-    # Mean Shift Filtering
-    spatial_radius = 20  # Spatial window radius
-    color_radius = 30    # Color window radius
-    max_level = 1        # Level of pyramid for Mean Shift
+    print("Applying Mean Shift segmentation ...")
 
-    # Apply Mean Shift Filtering
-    result = cv.pyrMeanShiftFiltering(image.img, spatial_radius, color_radius, maxLevel=max_level)
-
-    return result
+    # Convert the image to a feature space by blurring it slightly
+    blurred = cv.pyrMeanShiftFiltering(image.img, sp=20, sr=40)
+    
+    return blurred
 
 # Main processing function
 def process_images():
-    images = [Image(file) for file in glob.glob("images/*.JPG")]  # Load images from the directory
+    Images = glob.glob(os.path.join(IMAGES_PATH, "*.JPG"))  # Load images from the directory
 
-    for image in images:
-        result = mean_shift_segmentation(image)  # Perform Mean Shift segmentation
-        save_my_img(image.name, result)  # Save the segmented result
+    if Images:
+        print(f"Found {len(Images)} images. Starting processing...\n")
+        
+        for i, filepath in enumerate(Images, start=1):
+            image = Image(filepath)
+            print(f"Processing image {i}/{len(Images)}")
+            result = mean_shift_segmentation(image)
+            if result is not None:
+                save_img(image.name, result)
+    else:
+        print("No images found in the specified directory!\n")
 
-    print("Process complete!")
+    print("Processing complete!")
 
 if __name__ == "__main__":
-    process_images()  # Run the image processing function
+    process_images()
