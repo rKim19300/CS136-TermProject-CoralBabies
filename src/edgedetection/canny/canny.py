@@ -24,7 +24,6 @@ for image in images:
     img = cv.GaussianBlur(image.img, (3, 3), 0)
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 
-    img_blur = cv.blur(gray, (3, 3))
     detected_edges = cv.Canny(img_blur, 50, 150, 3)
     mask = detected_edges != 0
     dst = cv.cvtColor(image.img * (mask[:,:,None].astype(image.img.dtype)), cv.COLOR_BGR2GRAY)
