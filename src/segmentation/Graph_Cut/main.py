@@ -47,7 +47,7 @@ def graph_cut_segmentation(image):
     
     # Define the rectangle for initial background/foreground segmentation
     rect = (10, 10, gray.shape[1]-10, gray.shape[0]-10)
-    print("Grap cut is being applied ...")
+    print("Grap Cut is being applied ...")
     # Apply GrabCut segmentation algorithm
     cv.grabCut(smoothed_colored, mask, rect, bgd_model, fgd_model, 5, cv.GC_INIT_WITH_RECT)
 
