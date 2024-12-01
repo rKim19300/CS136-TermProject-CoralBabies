@@ -26,7 +26,7 @@ def save_img(frame_name, img):
         os.makedirs(SAVE_DIR)  # Ensure save directory exists
 
     if img is not None:
-        save_path = os.path.join(SAVE_DIR, f"{frame_name}_region_based.jpg")
+        save_path = os.path.join(SAVE_DIR, f"{frame_name}_active_contour.jpg")
         print(f"Saving image: {frame_name}_region_based.jpg\n")
         cv.imwrite(save_path, img)
     else:
