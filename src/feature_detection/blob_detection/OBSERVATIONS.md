@@ -1,7 +1,7 @@
 # Observations
 ## Author(s): Reece Kim
 ## Created: 11/29/2024
-## Last Editied: 11/29/2024
+## Last Editied: 12/1/2024
 
 ### Explanation and reason for choice
 
@@ -34,3 +34,7 @@
 
 - For the base samples, histogram equalized, and clahe datasets, the blob
   detector found nothing. Since the min circularity and inertia ratio was low
+
+- **After TAHE**: The images seem to be very noisy for the blob detector, so it 
+                   keep on detecting blobs that are way below the minimum area, and
+                   ruling them out based on area. 

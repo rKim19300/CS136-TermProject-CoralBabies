@@ -105,21 +105,21 @@ def save_components_for_dataset(dataset: dict[str, np.ndarray], save_path: str):
 if __name__ == '__main__':
 
     # Convert the dataset to binary (We will mark it in a different tool)
-    #dataset = utils.get_imgs_from_src('./colony_map_prepare', 0)
-    #convert_to_binary(dataset, './colony_map_prepare')
+    #dataset = utils.get_imgs_from_src('./canny_colony_map_prepare', 0)
+    #convert_to_binary(dataset, './canny_colony_map_prepare')
 
     # Convert the drawn on samples to binary again
-    #dataset_drawnon = utils.get_imgs_from_src('./colony_map_prepare/drawn_on', 0)
-    #convert_to_binary(dataset_drawnon, './colony_map_prepare')
+    #dataset_drawnon = utils.get_imgs_from_src('./canny_colony_map_prepare/drawn_on', 0)
+    #convert_to_binary(dataset_drawnon, './canny_colony_map_prepare')
 
     # Generate the colony maps by inverting the images
-    #dataset_prepare = utils.get_imgs_from_src('./colony_map_prepare', 0)
+    #dataset_prepare = utils.get_imgs_from_src('./canny_colony_map_prepare', 0)
     #for name, img in dataset_prepare.items():
     #    dataset_prepare[name] = 255 - img
-    #utils.save_imgs_to_src_file('./colony_map', dataset_prepare)
+    #utils.save_imgs_to_src_file('./canny_colony_map', dataset_prepare)
 
     # Get the connected components of each map, then color and save them
-    #colony_map = utils.get_imgs_from_src('./colony_map', 0)
+    #canny_colony_map = utils.get_imgs_from_src('./canny_colony_map', 0)
 
     # Convert the blue values (0, 81, 186) to white and non-blue to black
     """

@@ -5,8 +5,8 @@ import cv2
 
 
 if __name__ == '__main__':
-    dataset = utils.get_dataset(cv2.IMREAD_COLOR)
-    dataset_labeled = utils.get_dataset_labeled(cv2.IMREAD_COLOR)
+    dataset = utils.get_imgs_from_src('../../../dataset', cv2.IMREAD_COLOR)
+    dataset_labeled = utils.get_imgs_from_src('../../../labeled_data', cv2.IMREAD_COLOR)
     equalized = dict()
     stacked_compare = dict()
 
@@ -41,5 +41,5 @@ if __name__ == '__main__':
         # Save to compare
         stacked_compare[f"{split[0]}_equalized_compare{split[1]}"] = img_stack
 
-    #utils.save_imgs_to_src_file("contrast/histogram_equalization", equalized)
-    utils.save_imgs_to_src_file("contrast/histogram_equalization/hstack", stacked_compare)
+    utils.save_imgs_to_src_file("./", equalized)
+    utils.save_imgs_to_src_file("./hstack", stacked_compare)

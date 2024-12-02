@@ -10,6 +10,7 @@ def apply_blob(imgs: dict[str, np.ndarray], name_append: str, params: cv2.Simple
 
     result = dict()
     for name, img in imgs.items():
+
         keypoints = detector.detect(img) # Detect keypoints in the img
         print(f"Detected {len(keypoints)} keypoints in {name}")
 
@@ -80,7 +81,7 @@ def apply_blob_to_data(dataset_path: str, sample_folder: str, hstack_folder:str)
     hstacks = utils.create_hstacks([labeled, blob_imgs], '_compare')
 
     # Save the images
-    utils.save_imgs_to_src_file(hstack_folder, hstacks)
+    #utils.save_imgs_to_src_file(hstack_folder, hstacks)
     utils.save_imgs_to_src_file(sample_folder, samples_t0)
     utils.save_imgs_to_src_file(sample_folder, samples_t1)
 
@@ -88,12 +89,18 @@ def apply_blob_to_data(dataset_path: str, sample_folder: str, hstack_folder:str)
 if __name__ == '__main__':
 
     # Apply to the base dataset
-    apply_blob_to_data('../../../dataset', './control', './control/hstacks')
+    #apply_blob_to_data('../../../dataset', './control', './control/hstacks')
 
     # Apply to the histogram_equalized dataset
-    apply_blob_to_data('../../contrast/histogram_equalization', './hist_eq', './hist_eq/hstacks')
+    #apply_blob_to_data('../../contrast/histogram_equalization', './hist_eq', './hist_eq/hstacks')
 
     # Apply to the clahe dataset
-    apply_blob_to_data('../../contrast/clahe', './clahe', './clahe/hstacks')
+    #apply_blob_to_data('../../contrast/clahe', './clahe', './clahe/hstacks')
+
+    #apply_blob_to_data('../../contrast/tahe/nonoise', './tahe', './tahe/hstack')
+
+    #apply_blob_to_data('../../smoothing/median/clahe', './median+blob_clahe', './clahe/hstacks')
+    #apply_blob_to_data('../../smoothing/median/equalized', './median+blob_he', './clahe/hstacks')
+    apply_blob_to_data('../../segmentation/Mean_Shift/binary_tahe', './binary_ms_tahe', './clahe/hstacks')
 
 

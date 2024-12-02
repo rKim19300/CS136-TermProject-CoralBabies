@@ -6,6 +6,10 @@ import os
 
 
 if __name__ == '__main__':
+    """
+        The code used to generate the tahe images
+    """
+
     # Load dataset
     dataset = utils.get_imgs_from_src('../../../dataset', cv2.IMREAD_GRAYSCALE)
 
@@ -17,12 +21,11 @@ if __name__ == '__main__':
     tahe_imgs = dict()
     tahe_imgs_no_noise = dict()
     for name, img in dataset.items():
-        label_map, pixel_locations = components[name] # The map and samples should have corresponding names
+        label_map, pixel_locations = components[name]  # The map and samples should have corresponding names
 
         # Apply histogram equalization to each component in the image
         # pixels hold a 2D np.ndarray in which the column has two values [row, col]
         for label, pixels in pixel_locations.items():
-
             # Extract the pixel intensities from the image
             pixel_intensities = img[pixels[:, 0], pixels[:, 1]]
 
@@ -33,9 +36,9 @@ if __name__ == '__main__':
             cdf = hist.cumsum()
 
             # Mask and normalize the cdf
-            cdf_m = np.ma.masked_equal(cdf, 0) # Mask cdf where it is 0
-            cdf_m = ((cdf_m - cdf_m.min()) * 255) / (cdf_m.max() - cdf_m.min()) # Normalize between 0 to 255
-            cdf = np.ma.filled(cdf_m, 0).astype('uint8') # Filled masked values with 0
+            cdf_m = np.ma.masked_equal(cdf, 0)  # Mask cdf where it is 0
+            cdf_m = ((cdf_m - cdf_m.min()) * 255) / (cdf_m.max() - cdf_m.min())  # Normalize between 0 to 255
+            cdf = np.ma.filled(cdf_m, 0).astype('uint8')  # Filled masked values with 0
 
             # Apply equalized values to the pixel values of the component
             equalized_values = cdf[pixel_intensities]
@@ -54,6 +57,7 @@ if __name__ == '__main__':
     # Save the new images to their respective files
     utils.save_imgs_to_src_file('./', tahe_imgs)
     utils.save_imgs_to_src_file('./nonoise', tahe_imgs_no_noise)
+
 
 
 
