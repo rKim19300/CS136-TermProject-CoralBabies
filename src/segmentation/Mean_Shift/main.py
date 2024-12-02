@@ -29,11 +29,13 @@ def save_img(frame_name, img):
 
 def mean_shift_segmentation(image):
     print("Applying Mean Shift segmentation ...")
+    src = image.img
+    sp = 20  # Spatial window radius
+    sr = 40  # Color window radius
+    # Apply Mean Shift Segmentation
+    segmented_image = cv.pyrMeanShiftFiltering(src, sp, sr)
 
-    # Convert the image to a feature space by blurring it slightly
-    blurred = cv.pyrMeanShiftFiltering(image.img, sp=20, sr=40)
-    
-    return blurred
+    return segmented_image 
 
 # Main processing function
 def process_images():
