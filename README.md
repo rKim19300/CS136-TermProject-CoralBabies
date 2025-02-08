@@ -19,4 +19,6 @@
               it is being applied to.
 <br><br>
   - **feature_detection**: Holds algorithms such as Hough and Blob detection.
-  
+
+### Further Information
+Further elaboration on our project, including our goals, techniques, and reasoning, can be accessed via our [presentation](https://drive.google.com/file/d/1p4f0G2KlSiEhodmnPk7m6aD7AV7Ycdcq/view?usp=sharing).
